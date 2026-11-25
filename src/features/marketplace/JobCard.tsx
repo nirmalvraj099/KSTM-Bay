@@ -36,7 +36,10 @@ export function JobCard({ job }: { job: Job }) {
         </div>
         <div className="mt-1 flex items-center justify-between text-sm">
           <span className="font-semibold">{formatINR(job.budgetMin)} – {formatINR(job.budgetMax)}</span>
-          <span className="text-mut">{job.bidCount} bids · {daysLeft(job.closesAt)}</span>
+          <span className="text-mut">
+            {job.bidCount} {job.bidCount === 1 ? "bid" : "bids"} ·{" "}
+            {job.status === "awarded" ? <span className="text-cy">Winner picked</span> : daysLeft(job.closesAt)}
+          </span>
         </div>
       </div>
     </Link>

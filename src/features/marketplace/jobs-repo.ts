@@ -13,6 +13,7 @@
 import type { Job, JobDraft } from "./types";
 import { modLabel } from "./options";
 import { SAMPLE_JOBS } from "./sample-jobs";
+import { bidStats, deleteBidsForJob } from "./bids-repo";
 
 const KEY = "kstm.jobs.v1";
 
@@ -38,9 +39,15 @@ export function makeTitle(d: Pick<JobDraft, "make" | "model" | "year" | "modType
   return `${d.make} ${d.model} ${d.year} · ${mods}${more}`;
 }
 
+/** Bid count and status come from the bids, so they stay right as shops bid and owners pick. */
+function withBids(job: Job): Job {
+  const { count, awardedBidId } = bidStats(job.id);
+  return { ...job, bidCount: count, status: awardedBidId ? "awarded" : job.status, awardedBidId };
+}
+
 export async function listJobs(): Promise<Job[]> {
   const mine = readLocal();
-  return [...mine, ...SAMPLE_JOBS].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  return [...mine, ...SAMPLE_JOBS].map(withBids).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
 export async function getJob(id: string): Promise<Job | null> {
@@ -71,4 +78,5 @@ export async function createJob(draft: JobDraft): Promise<Job> {
 
 export async function deleteJob(id: string) {
   writeLocal(readLocal().filter((j) => j.id !== id));
+  await deleteBidsForJob(id);
 }
