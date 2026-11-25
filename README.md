@@ -13,6 +13,9 @@ Brand: "Render Stack" logo (`src/components/ui/Logo.tsx`), dark theme with signa
 
 ## Getting started
 
+**Quick look (no accounts needed):** run `npm install` then `npm run dev`. Without Supabase keys the site runs in demo mode: the Post a job flow (`/jobs/new`) saves jobs in your browser and shows sample jobs. Follow the steps below when you want real sign-ins and data.
+
+
 1. Install Node.js 20 or newer, then:
    ```bash
    npm install
