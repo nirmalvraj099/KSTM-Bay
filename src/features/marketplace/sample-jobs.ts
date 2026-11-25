@@ -5,7 +5,7 @@ const day = 86_400_000;
 const base = Date.now() - day;
 const at = (offsetDays: number) => new Date(base + offsetDays * day).toISOString();
 
-/** Example jobs so the list is not empty in demo mode. Photos are empty: the UI draws a placeholder. */
+/** Example jobs (their bids are in sample-bids.ts; bidCount is filled in from those) so the list is not empty in demo mode. Photos are empty: the UI draws a placeholder. */
 export const SAMPLE_JOBS: Job[] = [
   {
     id: "sample-swift-kochi",
@@ -23,7 +23,7 @@ export const SAMPLE_JOBS: Job[] = [
     status: "open",
     createdAt: at(0),
     closesAt: at(7),
-    bidCount: 4,
+    bidCount: 0,
   },
   {
     id: "sample-thar-coimbatore",
@@ -41,7 +41,7 @@ export const SAMPLE_JOBS: Job[] = [
     status: "open",
     createdAt: at(-0.5),
     closesAt: at(4),
-    bidCount: 7,
+    bidCount: 0,
   },
   {
     id: "sample-city-bengaluru",
@@ -59,6 +59,6 @@ export const SAMPLE_JOBS: Job[] = [
     status: "open",
     createdAt: at(-0.8),
     closesAt: at(3),
-    bidCount: 2,
+    bidCount: 0,
   },
 ];

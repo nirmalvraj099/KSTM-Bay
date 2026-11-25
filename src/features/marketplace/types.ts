@@ -32,6 +32,8 @@ export type Job = Omit<JobDraft, "biddingDays"> & {
   createdAt: string;
   closesAt: string;
   bidCount: number;
+  /** the bid the owner picked, once status is "awarded" */
+  awardedBidId?: string;
   /** true for the built-in examples, false for jobs posted in this browser */
   sample: boolean;
 };
