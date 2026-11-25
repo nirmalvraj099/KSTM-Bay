@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
+import { SiteHeader } from "@/components/ui/SiteHeader";
 
 const steps = [
   { n: "01", title: "Post your car", text: "Snap your car, set a budget and tell us the vibe: wraps, rims, body kits, lighting, interiors or the full build." },
@@ -20,13 +21,7 @@ const ecosystem = [
 export default function Home() {
   return (
     <div className="mx-auto max-w-6xl px-4">
-      <header className="flex items-center justify-between border-b border-line py-5">
-        <Link href="/"><Logo size={40} /></Link>
-        <nav className="flex items-center gap-3 text-sm">
-          <Link href="/login" className="rounded-lg border border-line px-4 py-2 font-medium hover:bg-panel">Log in</Link>
-          <Link href="/login" className="hidden rounded-lg bg-gradient-to-r from-a1 to-a2 px-4 py-2 font-semibold text-bg sm:inline-block">List your shop</Link>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <main className="flex flex-col gap-24 py-16">
         <section className="flex max-w-2xl flex-col gap-6">
@@ -41,8 +36,8 @@ export default function Home() {
             across South India send you real renders with real prices. Pick the one you love.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/login" className="rounded-lg bg-gradient-to-r from-a1 to-a2 px-5 py-3 font-semibold text-bg">Post my car, it&apos;s free →</Link>
-            <Link href="/login" className="rounded-lg border border-line px-5 py-3 font-semibold hover:bg-panel">See live builds</Link>
+            <Link href="/jobs/new" className="rounded-lg bg-gradient-to-r from-a1 to-a2 px-5 py-3 font-semibold text-bg">Post my car, it&apos;s free →</Link>
+            <Link href="/jobs" className="rounded-lg border border-line px-5 py-3 font-semibold hover:bg-panel">See open jobs</Link>
           </div>
         </section>
 
