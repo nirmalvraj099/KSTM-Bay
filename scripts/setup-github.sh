@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-# Creates track labels and starter issues. Usage: scripts/setup-github.sh [owner/repo]
+# Creates track labels and starter issues. Run once: re-running creates duplicate issues.
 set -euo pipefail
-REPO="${1:-$(gh repo view --json nameWithOwner -q .nameWithOwner)}"
+REPO="${1:-nirmalvraj099/kstm-bay}"
+# Uses the REST API only, so it also works where GraphQL is unavailable.
 
-label() { gh label create "$1" --repo "$REPO" --color "$2" --description "$3" --force; }
+label() {
+  gh api "repos/$REPO/labels" -f name="$1" -f color="$2" -f description="$3" --silent 2>/dev/null \
+    || gh api -X PATCH "repos/$REPO/labels/${1/:/%3A}" -f color="$2" -f description="$3" --silent
+}
 label "track:auth"      "1d76db" "Sign-in, profiles, sessions"
 label "track:database"  "5319e7" "Schema, migrations, RLS"
 label "track:marketplace" "c2185b" "Jobs, bids, renders, shops"
@@ -12,7 +16,7 @@ label "track:ai"        "d93f0b" "Claude-powered mod suggestions"
 label "track:ui"        "fbca04" "Design, pages, i18n"
 label "track:payments"  "b60205" "Razorpay and monetisation"
 
-issue() { gh issue create --repo "$REPO" --label "$1" --title "$2" --body "$3"; }
+issue() { gh api "repos/$REPO/issues" -f title="$2" -f body="$3" -f "labels[]=$1" --jq .html_url; }
 issue track:auth "Add phone OTP sign-in" "Enable Phone provider in Supabase with an Indian SMS provider (MSG91 or Twilio) and add a phone OTP form to /login."
 issue track:auth "Profile onboarding" "After first sign-in, ask for username, city and state, and preferred language. Store in profiles."
 issue track:database "Apply initial migration to Supabase" "Run supabase/migrations/0001_init.sql against the project and verify RLS policies."
