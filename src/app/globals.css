@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* KSTM Bay brand tokens (from branding/kstm-bay-demo.html) */
+:root {
+  --bg: #0a0a0e;
+  --panel: #14141b;
+  --line: #25252f;
+  --txt: #f4f2ee;
+  --mut: #9a98a6;
+  --a1: #ff3b2f; /* signal red */
+  --a2: #ffb300; /* amber */
+  --cy: #19e3c8; /* trust cyan: verified, escrow, RTO-safe */
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-line: var(--line);
+  --color-txt: var(--txt);
+  --color-mut: var(--mut);
+  --color-a1: var(--a1);
+  --color-a2: var(--a2);
+  --color-cy: var(--cy);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+}
+
+body {
+  background: var(--bg);
+  color: var(--txt);
+}
+
+/* Display type: heavy italic, tight */
+.disp {
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+.grad-text {
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Render Stack logo motion */
+.logo { overflow: visible; }
+.logo .f1, .logo .f2, .logo .f3 {
+  transform-box: view-box;
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.2, 1.2), opacity 0.4s;
+}
+.logo .f3 { animation: in3 1s 0.15s both cubic-bezier(0.2, 0.9, 0.2, 1); }
+.logo .f2 { animation: in2 1s 0.05s both cubic-bezier(0.2, 0.9, 0.2, 1); }
+.logo .f1 { animation: in1 0.9s both cubic-bezier(0.2, 0.9, 0.3, 1.3); }
+@keyframes in3 { from { transform: translate(-28px, 28px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes in2 { from { transform: translate(-14px, 14px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes in1 { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: none; opacity: 1; } }
+.brand:hover .logo .f3 { transform: translate(6px, -6px); }
+.brand:hover .logo .f2 { transform: translate(3px, -3px); }
+.brand:hover .logo .f1 { transform: translate(-3px, 3px); }
+@media (prefers-reduced-motion: reduce) {
+  .logo .f1, .logo .f2, .logo .f3 { animation: none; transition: none; }
+}
