@@ -62,3 +62,13 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .logo .f1, .logo .f2, .logo .f3 { animation: none; transition: none; }
 }
+
+/* Homepage marquee */
+@keyframes marquee { to { transform: translateX(-100%); } }
+.animate-marquee { animation: marquee 40s linear infinite; }
+.animate-marquee-rev { animation: marquee 50s linear infinite reverse; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee, .animate-marquee-rev { animation: none; }
+  html { scroll-behavior: auto; }
+}
