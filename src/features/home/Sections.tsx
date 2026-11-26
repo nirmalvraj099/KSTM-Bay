@@ -175,11 +175,12 @@ export function HowItWorks() {
 /* ───────────────────────── Featured build with hotspots ───────────────────────── */
 
 const HOTSPOTS = [
-  { x: 47, y: 16, label: "Roof light bar", brand: "Lumora", price: 34000 },
-  { x: 77, y: 48, label: "Halo LED projectors", brand: "Lumora", price: 22500 },
-  { x: 60, y: 78, label: "A/T tyres 285/70 R17", brand: "Ridgeline", price: 114000 },
-  { x: 24, y: 72, label: "2\" lift + nitro shocks", brand: "TrailCore", price: 78500 },
-  { x: 36, y: 44, label: "Satin wrap + ember stripe", brand: "Avero Films", price: 68000 },
+  { x: 36, y: 14, label: "Roof lamp bar, 4 pods", brand: "Lumora", price: 34000 },
+  { x: 25, y: 32, label: "Raised air intake", brand: "AirRaid", price: 16500 },
+  { x: 66, y: 40, label: "Auxiliary spot lamps", brand: "Lumora", price: 22500 },
+  { x: 72, y: 58, label: "Steel bumper + skid plate", brand: "IronPeak", price: 100000 },
+  { x: 39, y: 82, label: "A/T tyres 285/70 R17", brand: "Ridgeline", price: 114000 },
+  { x: 19, y: 75, label: "Rock sliders", brand: "IronPeak", price: 21000 },
 ];
 
 export function FeaturedBuild() {
@@ -210,7 +211,7 @@ export function FeaturedBuild() {
         </div>
       </Reveal>
 
-      <div ref={ref} className="relative mt-10 aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 sm:aspect-[16/9]">
+      <div ref={ref} className="relative mt-10 aspect-[16/9] overflow-hidden rounded-3xl border border-white/10">
         <motion.div style={{ y }} className="absolute -inset-y-[8%] inset-x-0">
           <Img photo={PHOTOS.offroad} sizes="(min-width:1280px) 1280px, 100vw" className="h-full w-full object-cover" />
         </motion.div>
@@ -236,7 +237,7 @@ export function FeaturedBuild() {
             style={{ left: `${h.x}%`, top: `${h.y}%` }}
           >
             <span className="absolute inset-0 animate-ping rounded-full bg-a2/60" />
-            <span className="relative grid h-8 w-8 place-items-center rounded-full border-2 border-a2 bg-bg/80 text-xs font-bold text-a2 backdrop-blur">
+            <span className="relative grid h-6 w-6 place-items-center rounded-full border-2 border-a2 sm:h-8 sm:w-8 bg-bg/80 text-xs font-bold text-a2 backdrop-blur">
               {i + 1}
             </span>
             <AnimatePresence>
@@ -246,7 +247,7 @@ export function FeaturedBuild() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 4 }}
                   transition={{ duration: 0.25 }}
-                  className={`absolute top-10 w-52 rounded-xl border border-white/10 bg-[#121218]/95 p-3 text-left shadow-2xl backdrop-blur ${h.x > 60 ? "right-0" : "left-0"}`}
+                  className={`absolute w-44 sm:w-52 ${h.y > 50 ? "bottom-10" : "top-10"} rounded-xl border border-white/10 bg-[#121218]/95 p-3 text-left shadow-2xl backdrop-blur ${h.x > 60 ? "right-0" : "left-0"}`}
                 >
                   <span className="block font-mono text-[10px] uppercase tracking-widest text-a2">{h.brand}</span>
                   <span className="mt-1 block text-sm font-semibold">{h.label}</span>
