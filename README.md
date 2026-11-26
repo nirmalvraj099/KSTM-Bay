@@ -53,9 +53,27 @@ scripts/               One-off helpers (GitHub labels and issues)
 
 Work is tracked as GitHub issues with these labels: `track:auth`, `track:database`, `track:marketplace`, `track:community`, `track:ai`, `track:ui`, `track:payments`. Run `scripts/setup-github.sh` once (needs the `gh` CLI, logged in) to create them.
 
-## Deploying
+## Deploying (Vercel)
 
-Import the repo in Vercel, add the same environment variables from `.env.example`, and add your Vercel domain's `/auth/callback` to Supabase redirect URLs.
+The site is hosted on [Vercel](https://vercel.com) (free Hobby plan). Vercel detects Next.js on its own, so there is no `vercel.json` and no build settings to change.
+
+- **Every pull request** gets its own preview link. Vercel posts it as a comment on the PR.
+- **Merging into `main`** updates the live site.
+- **No environment variables are needed yet.** Without Supabase keys the site runs in demo mode, exactly like `npm run dev` without `.env.local`.
+
+### First-time setup (once)
+
+1. Go to [vercel.com/signup](https://vercel.com/signup) and choose **Continue with GitHub**. Pick the **Hobby** (free) plan.
+2. On the Vercel dashboard, click **Add New... > Project**.
+3. Find **KSTM-Bay** in the list and click **Import**. If it is not listed, click **Adjust GitHub App Permissions**, give Vercel access to the KSTM-Bay repo, and come back.
+4. Leave every setting as it is (Framework Preset shows **Next.js**). Click **Deploy**.
+5. Wait about a minute. You get a live link like `kstm-bay.vercel.app`.
+
+### Later, when Supabase is added
+
+1. In Vercel, open the project, then **Settings > Environment Variables**, and add the values from `.env.example` (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`, and `NEXT_PUBLIC_SITE_URL` set to your Vercel address).
+2. In Supabase, under **Authentication > URL Configuration**, add `https://<your-vercel-domain>/auth/callback` to the redirect URLs.
+3. In Vercel, open **Deployments**, click the three dots on the latest one and choose **Redeploy** so the new values take effect.
 
 ## Security notes
 
